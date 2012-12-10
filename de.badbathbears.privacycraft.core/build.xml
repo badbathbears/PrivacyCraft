@@ -1,0 +1,50 @@
+<project name="privacycraft.core">
+	<property file="build.properties" />
+	<property file="build-default.properties" />
+	
+	<path id="master-classpath">
+		<pathelement location="${build}" />
+		<fileset dir="${mcp.home}jars/bin">
+			<include name="*.jar" />
+		</fileset>
+		<fileset dir="${mcp.home}lib">
+			<include name="*.jar" />
+		</fileset>
+	</path>
+	
+	<target name="update">
+		<delete dir="${build}"/>
+		<mkdir dir="${build}"/>
+		
+		<javac includeantruntime="true" destdir="${build}" debug="true" debuglevel="lines,vars,source">
+			<classpath refid="master-classpath" />
+			<src path="${mcp.home}src/minecraft"/>
+			<src path="${mcp.home}src/common"/>
+		</javac>
+		
+		<copy todir="${build}">
+			<fileset dir="${mcp.home}src/minecraft">
+				<exclude name="*.java" />
+				<exclude name="**/*.java" />
+			</fileset>
+			<fileset dir="${mcp.home}src/common">
+				<exclude name="*.java" />
+				<exclude name="**/*.java" />
+			</fileset>
+		</copy>
+		
+		<mkdir dir="lib"/>
+		<jar destfile="lib/mcp.jar">
+			<fileset dir="${build}" />
+		</jar>
+		
+		<delete dir="${build}"/>
+		
+		<antcall target="refresh" />
+	</target>
+
+	<target name="refresh">
+		<!-- IMPORTANT: you have to choose "Run in the same JRE as workspace" at the Ant run configuration -->
+		<eclipse.refreshLocal resource="${project.name}" depth="infinite" />
+	</target>
+</project>
