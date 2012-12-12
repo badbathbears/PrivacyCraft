@@ -27,6 +27,13 @@ public class CommonProxy implements IGuiHandler {
 
 	public void addNames() { // For adding Item's ingame names
 		LanguageRegistry.addName(PrivacyCraft.ruby, "Ruby");
+		LanguageRegistry.addName(PrivacyCraft.blockableIronDoorItem, "Blockable iron door");
+		LanguageRegistry.addName(PrivacyCraft.blockableWoodDoorItem, "Blockable wooden door");
+		LanguageRegistry.addName(PrivacyCraft.blockableIronDoorBlock, "Blockable iron door");
+		LanguageRegistry.addName(PrivacyCraft.blockableWoodDoorBlock, "Blockable wooden door");
+		LanguageRegistry.addName(PrivacyCraft.stoneKeyLockBlock, "A Stone Lock");
+		LanguageRegistry.addName(PrivacyCraft.stoneKeyLockItem, "A Stone Lock");
+		LanguageRegistry.addName(PrivacyCraft.keyItem, "A key");
 	}
 
 	public void addRecipes() { // For adding your Item's recipes
