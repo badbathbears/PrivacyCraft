@@ -8,9 +8,9 @@ import net.minecraft.src.Item;
 public class ItemRuby extends Item {
 	public ItemRuby(int par1) {
 		super(par1);
-		setTextureFile("/PrivacyCraftGFX/Items.png");
-		setItemName("PrivacyCraftItemRuby");
-		setCreativeTab(CreativeTabs.tabMaterials);
+		this.setTextureFile("/PrivacyCraftGFX/Items.png");
+		this.setItemName("PrivacyCraftItemRuby");
+		this.setCreativeTab(CreativeTabs.tabMaterials);
 	}
 
 	@SideOnly(Side.CLIENT)

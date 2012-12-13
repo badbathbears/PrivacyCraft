@@ -12,9 +12,9 @@ public class ItemKeyLock extends Item {
 
 	public ItemKeyLock(int par1) {
 		super(par1);
-		setTextureFile("/PrivacyCraftGFX/Items.png");
+		this.setTextureFile("/PrivacyCraftGFX/Items.png");
 		this.setCreativeTab(CreativeTabs.tabRedstone);
-		setItemName("PrivacyCraftItemKeyLocks");
+		this.setItemName("PrivacyCraftItemKeyLocks");
 	}
 
 	@Override

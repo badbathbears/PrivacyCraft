@@ -43,7 +43,7 @@ public class PrivacyCraft {
 	public static Item stoneKeyLockItem = new ItemKeyLock(15004);
 	public static Block blockableWoodDoorBlock = new BlockBlockableDoor(2049,Material.wood);
 	public static Block blockableIronDoorBlock = new BlockBlockableDoor(2050,Material.iron);
-	public static Block stoneKeyLockBlock = new BlockKeyLock(2051,17,Material.rock);
+	public static Block stoneKeyLockBlock = new BlockKeyLock(2051,1,Material.rock);
 
 	@Init
 	public void InitCobaltCraft(FMLInitializationEvent event) {

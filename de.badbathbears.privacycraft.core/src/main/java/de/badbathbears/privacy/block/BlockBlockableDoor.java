@@ -17,6 +17,7 @@ import de.badbathbears.privacy.core.PrivacyCraft;
 public class BlockBlockableDoor extends BlockDoor {
 	public BlockBlockableDoor(int par1, Material par3Material) {
 		super(par1, par3Material);
+		this.setRequiresSelfNotify();
 	}
 
 	@Override
@@ -32,6 +33,15 @@ public class BlockBlockableDoor extends BlockDoor {
 				par6, par7, par8, par9);
 	}
 
+	@Override
+	public void onPoweredBlockChange(World par1World, int par2, int par3,
+			int par4, boolean par5) {
+		if (isDoorLocked(par1World, par2, par3, par4)) {
+			return;
+		}
+		super.onPoweredBlockChange(par1World, par2, par3, par4, par5);
+	}
+
 	private boolean isDoorLocked(World par1World, int par2, int par3, int par4) {
 		boolean locked = false;
 		int y = par3;
@@ -42,33 +52,36 @@ public class BlockBlockableDoor extends BlockDoor {
 
 		// check surrounding blocks
 		/*
-		 * Frontview: x x#x x#x x Top: x x#x x
+		 * Frontview: 
+		 *  x 
+		 * x#x 
+		 * x#x 
+		 *  x 
+		 * Top: 
+		 *  x 
+		 * x#x
+		 *  x
 		 */
 		// lower neighbours
+		locked = checkLocked(par1World, par2, y, par4, locked);
+		locked = checkLocked(par1World, par2 - 1, y, par4, locked);
+		locked = checkLocked(par1World, par2, y, par4 + 1, locked);
+		locked = checkLocked(par1World, par2, y, par4 - 1, locked);
+		// upper neighbours
+		locked = checkLocked(par1World, par2 + 1, y + 1, par4, locked);
+		locked = checkLocked(par1World, par2 - 1, y + 1, par4, locked);
+		locked = checkLocked(par1World, par2, y + 1, par4 + 1, locked);
+		locked = checkLocked(par1World, par2, y, par4 - 1, locked);
+		// upper center
+		locked = checkLocked(par1World, par2, y + 2, par4, locked);
+		// lower center
+		locked = checkLocked(par1World, par2, y - 1, par4, locked);
+		return locked;
+	}
+
+	private boolean checkLocked(World par1World, int par2, int y, int par4, boolean locked) {
 		if (!locked)
 			locked |= isBlockLockedLock(par1World, par2 + 1, y, par4);
-		if (!locked)
-			if (!locked)
-				locked |= isBlockLockedLock(par1World, par2 - 1, y, par4);
-		if (!locked)
-			locked |= isBlockLockedLock(par1World, par2, y, par4 + 1);
-		if (!locked)
-			locked |= isBlockLockedLock(par1World, par2, y, par4 - 1);
-		// upper neighbours
-		if (!locked)
-			locked |= isBlockLockedLock(par1World, par2 + 1, y + 1, par4);
-		if (!locked)
-			locked |= isBlockLockedLock(par1World, par2 - 1, y + 1, par4);
-		if (!locked)
-			locked |= isBlockLockedLock(par1World, par2, y + 1, par4 + 1);
-		if (!locked)
-			locked |= isBlockLockedLock(par1World, par2, y, par4 - 1);
-		// upper center
-		if (!locked)
-			locked |= isBlockLockedLock(par1World, par2, y + 2, par4);
-		// lower center
-		if (!locked)
-			locked |= isBlockLockedLock(par1World, par2, y - 1, par4);
 		return locked;
 	}
 

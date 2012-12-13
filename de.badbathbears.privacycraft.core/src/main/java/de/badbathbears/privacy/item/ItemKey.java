@@ -9,9 +9,9 @@ public class ItemKey extends Item {
 
 	public ItemKey(int par1) {
 		super(par1);
-		setTextureFile("/PrivacyCraftGFX/Items.png");
-		setItemName("PrivacyCraftItemKey");
-		setCreativeTab(CreativeTabs.tabTools);
+		this.setTextureFile("/PrivacyCraftGFX/Items.png");
+		this.setItemName("PrivacyCraftItemKey");
+		this.setCreativeTab(CreativeTabs.tabTools);
 	}
 
 	@SideOnly(Side.CLIENT)
