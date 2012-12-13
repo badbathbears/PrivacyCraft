@@ -64,7 +64,7 @@ public class BlockBlockableDoor extends BlockDoor {
 		 *  x
 		 */
 		// lower neighbours
-		locked = checkLocked(par1World, par2, y, par4, locked);
+		locked = checkLocked(par1World, par2 + 1, y, par4, locked);
 		locked = checkLocked(par1World, par2 - 1, y, par4, locked);
 		locked = checkLocked(par1World, par2, y, par4 + 1, locked);
 		locked = checkLocked(par1World, par2, y, par4 - 1, locked);
@@ -72,7 +72,7 @@ public class BlockBlockableDoor extends BlockDoor {
 		locked = checkLocked(par1World, par2 + 1, y + 1, par4, locked);
 		locked = checkLocked(par1World, par2 - 1, y + 1, par4, locked);
 		locked = checkLocked(par1World, par2, y + 1, par4 + 1, locked);
-		locked = checkLocked(par1World, par2, y, par4 - 1, locked);
+		locked = checkLocked(par1World, par2, y + 1, par4 - 1, locked);
 		// upper center
 		locked = checkLocked(par1World, par2, y + 2, par4, locked);
 		// lower center
@@ -89,7 +89,8 @@ public class BlockBlockableDoor extends BlockDoor {
 	private boolean isBlockLockedLock(World par1World, int par2, int par3,
 			int par4) {
 		TileEntity blockTileEntity = par1World.getBlockTileEntity(par2, par3, par4);
-		return blockTileEntity != null && blockTileEntity instanceof TileEntityLock && ((TileEntityLock) blockTileEntity).isLocked();
+		int blockMetadata = par1World.getBlockMetadata(par2, par3, par4);
+		return blockTileEntity != null && blockTileEntity instanceof TileEntityLock && BlockKeyLock.isLocked(blockMetadata);
 	}
 
 	@Override
