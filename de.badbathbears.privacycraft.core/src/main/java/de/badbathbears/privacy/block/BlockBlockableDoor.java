@@ -18,6 +18,7 @@ public class BlockBlockableDoor extends BlockDoor {
 	public BlockBlockableDoor(int par1, Material par3Material) {
 		super(par1, par3Material);
 		this.setRequiresSelfNotify();
+		this.setBlockName("PrivacyCraftBlockBlockableDoor");
 	}
 
 	@Override
@@ -81,17 +82,14 @@ public class BlockBlockableDoor extends BlockDoor {
 
 	private boolean checkLocked(World par1World, int par2, int y, int par4, boolean locked) {
 		if (!locked)
-			locked |= isBlockLockedLock(par1World, par2 + 1, y, par4);
+			locked |= isBlockLockedLock(par1World, par2, y, par4);
 		return locked;
 	}
 
 	private boolean isBlockLockedLock(World par1World, int par2, int par3,
 			int par4) {
-		TileEntity blockTileEntity = par1World.getBlockTileEntity(par2, par3,
-				par4);
-		return blockTileEntity != null
-				&& blockTileEntity instanceof TileEntityLock
-				&& ((TileEntityLock) blockTileEntity).isLocked();
+		TileEntity blockTileEntity = par1World.getBlockTileEntity(par2, par3, par4);
+		return blockTileEntity != null && blockTileEntity instanceof TileEntityLock && ((TileEntityLock) blockTileEntity).isLocked();
 	}
 
 	@Override
