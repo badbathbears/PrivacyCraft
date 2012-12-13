@@ -1,5 +1,7 @@
 package de.badbathbears.privacy.item;
 
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.asm.SideOnly;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
@@ -12,11 +14,18 @@ public class ItemKeyLock extends Item {
 
 	public ItemKeyLock(int par1) {
 		super(par1);
-		this.setTextureFile("/PrivacyCraftGFX/Items.png");
+		this.setTextureFile(PrivacyCraft.textureFile);
 		this.setCreativeTab(CreativeTabs.tabRedstone);
 		this.setItemName("PrivacyCraftItemKeyLocks");
+		
 	}
 
+	@Override
+	@SideOnly(Side.CLIENT)
+	public int getIconFromDamage(int par1) {
+		return 3;
+	}
+	
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack,
 			EntityPlayer par2EntityPlayer, World par3World, int par4, int par5,

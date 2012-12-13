@@ -2,6 +2,7 @@ package de.badbathbears.privacy.item;
 
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
+import de.badbathbears.privacy.core.PrivacyCraft;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.Item;
 
@@ -9,7 +10,7 @@ public class ItemKey extends Item {
 
 	public ItemKey(int par1) {
 		super(par1);
-		this.setTextureFile("/PrivacyCraftGFX/Items.png");
+		this.setTextureFile(PrivacyCraft.textureFile);
 		this.setItemName("PrivacyCraftItemKey");
 		this.setCreativeTab(CreativeTabs.tabTools);
 	}

@@ -16,7 +16,7 @@ public class ItemBlockableDoor extends ItemDoor {
 	public ItemBlockableDoor(int par1, Material par2Material) {
 		super(par1, par2Material);
 		this.doorMaterial = par2Material;
-		this.setTextureFile("/PrivacyCraftGFX/Items.png");
+		this.setTextureFile(PrivacyCraft.textureFile);
 		if (par2Material == Material.wood) {
 			this.setItemName("PrivacyCraftItemBlockableWoodDoor");
 		} else if (par2Material == Material.iron) {

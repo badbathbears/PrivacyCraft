@@ -36,6 +36,7 @@ public class PrivacyCraft {
 	@SidedProxy(clientSide = "de.badbathbears.privacy.core.ClientProxy", serverSide = "de.badbathbears.privacy.core.CommonProxy")
 	public static CommonProxy proxy;
 
+	public static final String textureFile = "/PrivacyCraftGFX/Textures.png";
 	// ITEMS
 	public static Item ruby = new ItemRuby(15000);
 	public static Item blockableIronDoorItem = new ItemBlockableDoor(15001,Material.iron);
@@ -48,7 +49,6 @@ public class PrivacyCraft {
 	public static Block blockableIronDoorBlock = new BlockBlockableDoor(2050,Material.iron);
 	public static Block stoneKeyLockBlock = new BlockKeyLock(2051,1,Material.rock);
 
-	public static String textureFile = "/PrivacyCraftGFX/Items.png";
 
 	@Init
 	public void InitCobaltCraft(FMLInitializationEvent event) {
