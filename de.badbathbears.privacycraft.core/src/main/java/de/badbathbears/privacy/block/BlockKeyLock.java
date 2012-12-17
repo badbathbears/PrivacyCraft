@@ -56,10 +56,18 @@ public class BlockKeyLock extends BlockContainer {
 	public int getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side) {
 		int meta = par1IBlockAccess.getBlockMetadata(x, y, z);
 		
+		if((meta & 0x7) == 0)
+			meta = 2;
+		
 		if(isLocked(meta)) {
 			meta=meta-8;
 		}
 		return side != meta ? 1 : (this.isLocked(par1IBlockAccess, x, y, z) ? 2 : 3);
+	}
+	
+	@Override
+	public int getBlockTextureFromSide(int side) {
+		return side == 4 ? 2 : 1;
 	}
 
 	private boolean isLocked(IBlockAccess world, int x, int y, int z) {
@@ -90,7 +98,7 @@ public class BlockKeyLock extends BlockContainer {
 			par1World.setBlockMetadataWithNotify(par2, par3, par4, (blockMetadata | 8));
 		}
 	}
-
+	
 	public int idDropped(int par1, Random par2Random, int par3) {
 		return PrivacyCraft.stoneKeyLockItem.shiftedIndex;
 	}
@@ -101,17 +109,11 @@ public class BlockKeyLock extends BlockContainer {
 		int var6 = MathHelper.floor_double((double) (par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
 		if (var6 == 0) {
 			par1World.setBlockMetadataWithNotify(par2, par3, par4, 2);
-		}
-
-		if (var6 == 1) {
+		} else if (var6 == 1) {
 			par1World.setBlockMetadataWithNotify(par2, par3, par4, 5);
-		}
-
-		if (var6 == 2) {
+		} else if (var6 == 2) {
 			par1World.setBlockMetadataWithNotify(par2, par3, par4, 3);
-		}
-
-		if (var6 == 3) {
+		} else if (var6 == 3) {
 			par1World.setBlockMetadataWithNotify(par2, par3, par4, 4);
 		}
 	}

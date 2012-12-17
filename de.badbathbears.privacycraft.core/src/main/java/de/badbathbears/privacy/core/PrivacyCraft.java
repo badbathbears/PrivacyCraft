@@ -17,8 +17,7 @@ import de.badbathbears.privacy.block.BlockKeyLock;
 import de.badbathbears.privacy.block.TileEntityLock;
 import de.badbathbears.privacy.item.ItemBlockableDoor;
 import de.badbathbears.privacy.item.ItemKey;
-import de.badbathbears.privacy.item.ItemKeyLock;
-import de.badbathbears.privacy.item.ItemRuby;
+import de.badbathbears.privacy.item.ItemPrivacyCraftBlock;
 
 @NetworkMod(//
 		clientSideRequired = true,// 
@@ -37,21 +36,23 @@ public class PrivacyCraft {
 	public static CommonProxy proxy;
 
 	public static final String textureFile = "/PrivacyCraftGFX/Textures.png";
-	// ITEMS
-	public static Item ruby = new ItemRuby(15000);
-	public static Item blockableIronDoorItem = new ItemBlockableDoor(15001,Material.iron);
-	public static Item blockableWoodDoorItem = new ItemBlockableDoor(15002,Material.wood);
-	public static Item keyItem = new ItemKey(15003);
-	public static Item stoneKeyLockItem = new ItemKeyLock(15004);
 	
 	// BLOCKS
 	public static Block blockableWoodDoorBlock = new BlockBlockableDoor(2049,Material.wood);
 	public static Block blockableIronDoorBlock = new BlockBlockableDoor(2050,Material.iron);
 	public static Block stoneKeyLockBlock = new BlockKeyLock(2051,1,Material.rock);
+	
+	// ITEMS
+	public static Item blockableIronDoorItem = new ItemBlockableDoor(15001,Material.iron);
+	public static Item blockableWoodDoorItem = new ItemBlockableDoor(15002,Material.wood);
+	public static Item keyItem = new ItemKey(15003);
+	
+	// COMMON 
+	public static Item stoneKeyLockItem = new ItemPrivacyCraftBlock(stoneKeyLockBlock);
 
 
 	@Init
-	public void InitCobaltCraft(FMLInitializationEvent event) {
+	public void initPrivacyCraft(FMLInitializationEvent event) {
 		NetworkRegistry.instance().registerGuiHandler(this, proxy);
 		proxy.addNames();
 		TileEntity.addMapping(TileEntityLock.class, "Lock");
