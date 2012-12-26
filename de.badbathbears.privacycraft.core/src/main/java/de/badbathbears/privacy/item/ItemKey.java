@@ -17,7 +17,7 @@ public class ItemKey extends Item {
 
 	@SideOnly(Side.CLIENT)
 	public int getItemIconFromDamage(int i) {
-		return 0;
+		return 6;
 	}
 	
 	@Override
