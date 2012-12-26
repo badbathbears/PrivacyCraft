@@ -1,4 +1,4 @@
-package de.badbathbears.privacy.item;
+package de.badbathbears.privacy.door;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.EntityPlayer;
@@ -9,11 +9,11 @@ import net.minecraft.src.MathHelper;
 import net.minecraft.src.World;
 import de.badbathbears.privacy.core.PrivacyCraft;
 
-public class ItemBlockableDoor extends ItemDoor {
+public class ItemLockableDoor extends ItemDoor {
 
 	private Material doorMaterial;
 
-	public ItemBlockableDoor(int par1, Material par2Material) {
+	public ItemLockableDoor(int par1, Material par2Material) {
 		super(par1, par2Material);
 		this.doorMaterial = par2Material;
 		this.setTextureFile(PrivacyCraft.textureFile);

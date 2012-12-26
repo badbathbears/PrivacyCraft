@@ -1,4 +1,4 @@
-package de.badbathbears.privacy.block;
+package de.badbathbears.privacy.door;
 
 import java.util.Random;
 
@@ -8,14 +8,16 @@ import net.minecraft.src.Material;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import de.badbathbears.privacy.core.PrivacyCraft;
+import de.badbathbears.privacy.lock.BlockKeyLock;
+import de.badbathbears.privacy.lock.TileEntityLock;
 
 //FIXME unterer teil der tür reagiert doppelt (geht auf und direkt wieder zu)
 //FIXME onActivate wird immer zweimal aufgerufen (vermutlich client und server) "offene" tür wird jeweils einmal als verschlossen und einmal als offen angesehen
 //FIXME es wird keine tür gedropt, wenn ich die tür zerstöre
 //TODO quickcheck einbauen (hat der alle schlüssel bei sich)
 
-public class BlockBlockableDoor extends BlockDoor {
-	public BlockBlockableDoor(int par1, Material par3Material) {
+public class BlockLockableDoor extends BlockDoor {
+	public BlockLockableDoor(int par1, Material par3Material) {
 		super(par1, par3Material);
 		this.setRequiresSelfNotify();
 		this.setBlockName("PrivacyCraftBlockBlockableDoor");

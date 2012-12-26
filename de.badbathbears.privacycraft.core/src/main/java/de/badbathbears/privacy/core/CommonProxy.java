@@ -5,9 +5,9 @@ import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
-import de.badbathbears.privacy.block.TileEntityLock;
 import de.badbathbears.privacy.gui.ContainerCodeLock;
 import de.badbathbears.privacy.gui.GuiCodeLock;
+import de.badbathbears.privacy.lock.TileEntityLock;
 
 public class CommonProxy implements IGuiHandler {
 	public static final int GUI_KEY_LOCK = 0;

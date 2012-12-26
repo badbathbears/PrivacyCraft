@@ -10,10 +10,10 @@ import org.lwjgl.opengl.GL11;
 
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
-import de.badbathbears.privacy.block.BlockLock;
-import de.badbathbears.privacy.block.TileEntityLock;
 import de.badbathbears.privacy.core.CommonProxy;
 import de.badbathbears.privacy.core.PrivacyCraft;
+import de.badbathbears.privacy.lock.BlockLock;
+import de.badbathbears.privacy.lock.TileEntityLock;
 
 @SideOnly(Side.CLIENT)
 public class GuiCodeLock extends GuiContainer {

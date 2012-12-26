@@ -1,4 +1,4 @@
-package de.badbathbears.privacy.block;
+package de.badbathbears.privacy.lock;
 
 import java.util.Random;
 

@@ -13,14 +13,14 @@ import cpw.mods.fml.common.network.NetworkMod;
 import cpw.mods.fml.common.network.NetworkMod.SidedPacketHandler;
 import cpw.mods.fml.common.network.NetworkRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
-import de.badbathbears.privacy.block.BlockBlockableDoor;
-import de.badbathbears.privacy.block.BlockCodeLock;
-import de.badbathbears.privacy.block.BlockKeyLock;
-import de.badbathbears.privacy.block.TileEntityLock;
-import de.badbathbears.privacy.item.ItemBlockableDoor;
-import de.badbathbears.privacy.item.ItemCodeLock;
-import de.badbathbears.privacy.item.ItemKey;
-import de.badbathbears.privacy.item.ItemKeyLock;
+import de.badbathbears.privacy.door.BlockLockableDoor;
+import de.badbathbears.privacy.door.ItemLockableDoor;
+import de.badbathbears.privacy.lock.BlockCodeLock;
+import de.badbathbears.privacy.lock.BlockKeyLock;
+import de.badbathbears.privacy.lock.ItemCodeLock;
+import de.badbathbears.privacy.lock.ItemKey;
+import de.badbathbears.privacy.lock.ItemKeyLock;
+import de.badbathbears.privacy.lock.TileEntityLock;
 
 @NetworkMod(//
 		clientSideRequired = true,// 
@@ -41,15 +41,15 @@ public class PrivacyCraft {
 	public static final String texturePath = "/PrivacyCraftGFX/";
 	public static final String textureFile = texturePath + "Textures.png";
 	// ITEMS
-	public static Item blockableIronDoorItem = new ItemBlockableDoor(15001,Material.iron);
-	public static Item blockableWoodDoorItem = new ItemBlockableDoor(15002,Material.wood);
+	public static Item blockableIronDoorItem = new ItemLockableDoor(15001,Material.iron);
+	public static Item blockableWoodDoorItem = new ItemLockableDoor(15002,Material.wood);
 	public static Item keyItem = new ItemKey(15003);
 	public static Item stoneKeyLockItem = new ItemKeyLock(15004);
 	public static Item stoneCodeLockItem = new ItemCodeLock(15005);
 	
 	// BLOCKS
-	public static Block blockableWoodDoorBlock = new BlockBlockableDoor(2049,Material.wood);
-	public static Block blockableIronDoorBlock = new BlockBlockableDoor(2050,Material.iron);
+	public static Block blockableWoodDoorBlock = new BlockLockableDoor(2049,Material.wood);
+	public static Block blockableIronDoorBlock = new BlockLockableDoor(2050,Material.iron);
 	public static Block stoneKeyLockBlock = new BlockKeyLock(2051,1,Material.rock);
 	public static Block stoneCodeLockBlock = new BlockCodeLock(2052,1,Material.rock);
 

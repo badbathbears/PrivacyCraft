@@ -1,4 +1,4 @@
-package de.badbathbears.privacy.block;
+package de.badbathbears.privacy.lock;
 
 import net.minecraft.src.INetworkManager;
 import net.minecraft.src.NBTTagCompound;
@@ -6,10 +6,9 @@ import net.minecraft.src.Packet;
 import net.minecraft.src.Packet132TileEntityData;
 import net.minecraft.src.TileEntity;
 
-public class TileEntityLock extends TileEntity {
+public class TileEntityLock extends TileEntity implements Lockable {
 
-	public static final String DEFAULT = "0000";
-	private String keyCode = DEFAULT;
+	private String keyCode = Lockable.DEFAULT;
 	private boolean isSet = false;
 
 	public TileEntityLock() {
@@ -19,19 +18,19 @@ public class TileEntityLock extends TileEntity {
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
 		super.onDataPacket(net, pkt);
 		NBTTagCompound tag = pkt.customParam1;
-		keyCode = tag.getString("KeyCode");
+		keyCode = tag.getString(Lockable.KEY_CODE);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeToNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setString("KeyCode", this.getKeyCode());
+		par1nbtTagCompound.setString(KEY_CODE, this.getKeyCode());
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readFromNBT(par1nbtTagCompound);
-		this.setKeyCode(par1nbtTagCompound.getString("KeyCode"));
+		this.setKeyCode(par1nbtTagCompound.getString(KEY_CODE));
 	}
 
 	public String getKeyCode() {

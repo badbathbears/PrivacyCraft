@@ -1,4 +1,4 @@
-package de.badbathbears.privacy.block;
+package de.badbathbears.privacy.lock;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -18,7 +18,7 @@ import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 import de.badbathbears.privacy.core.PrivacyCraft;
 
-public abstract class BlockLock extends BlockContainer {
+public abstract class BlockLock extends BlockContainer{
 
 	protected int lockedTexture;
 	protected int unlockedTexture;

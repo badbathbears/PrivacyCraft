@@ -1,4 +1,4 @@
-package de.badbathbears.privacy.block;
+package de.badbathbears.privacy.lock;
 
 import java.util.Random;
 
@@ -9,11 +9,11 @@ import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.MathHelper;
+import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 import de.badbathbears.privacy.core.PrivacyCraft;
-import de.badbathbears.privacy.item.ItemKey;
 
 //TODO dafür sorgen dass nicht verschiebbar (auch nicht durch redpower!)
 public class BlockKeyLock extends BlockLock {
@@ -78,8 +78,12 @@ public class BlockKeyLock extends BlockLock {
 	}
 
 	private boolean matches(ItemStack keyStack, TileEntityLock tile) {
-		// keyStack.getTagCompound()
-		return true;
+		NBTTagCompound tagCompound = keyStack.getTagCompound();
+		String itemKey = tagCompound.getString(TileEntityLock.KEY_CODE);
+		if(tile != null && itemKey != null && itemKey.equals(tile.getKeyCode())) {
+			return true;
+		}
+		return false;
 	}
 
 	public int idDropped(int par1, Random par2Random, int par3) {

@@ -1,4 +1,4 @@
-package de.badbathbears.privacy.item;
+package de.badbathbears.privacy.lock;
 
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;

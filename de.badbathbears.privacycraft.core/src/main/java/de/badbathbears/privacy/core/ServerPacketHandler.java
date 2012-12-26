@@ -10,8 +10,8 @@ import net.minecraft.src.Packet250CustomPayload;
 import net.minecraft.src.World;
 import cpw.mods.fml.common.network.IPacketHandler;
 import cpw.mods.fml.common.network.Player;
-import de.badbathbears.privacy.block.BlockLock;
-import de.badbathbears.privacy.block.TileEntityLock;
+import de.badbathbears.privacy.lock.BlockLock;
+import de.badbathbears.privacy.lock.TileEntityLock;
 
 public class ServerPacketHandler implements IPacketHandler {
 

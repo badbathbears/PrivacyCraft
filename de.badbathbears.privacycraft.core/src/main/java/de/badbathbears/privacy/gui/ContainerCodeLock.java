@@ -1,6 +1,6 @@
 package de.badbathbears.privacy.gui;
 
-import de.badbathbears.privacy.block.TileEntityLock;
+import de.badbathbears.privacy.lock.TileEntityLock;
 import net.minecraft.src.Container;
 import net.minecraft.src.EntityPlayer;
 
