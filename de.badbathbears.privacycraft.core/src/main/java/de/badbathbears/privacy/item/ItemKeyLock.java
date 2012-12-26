@@ -16,8 +16,7 @@ public class ItemKeyLock extends Item {
 		super(par1);
 		this.setTextureFile(PrivacyCraft.textureFile);
 		this.setCreativeTab(CreativeTabs.tabRedstone);
-		this.setItemName("PrivacyCraftItemKeyLocks");
-		
+		this.setItemName("PrivacyCraftItemKeyLock");
 	}
 
 	@Override

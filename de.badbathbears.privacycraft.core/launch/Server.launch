@@ -2,7 +2,7 @@
 <launchConfiguration type="org.eclipse.jdt.launching.localJavaApplication">
 <stringAttribute key="bad_container_name" value="/de.badbathbears.privacycraft.core/la"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
-<listEntry value="/de.badbathbears.privacycraft.core/lib/mcp.jar"/>
+<listEntry value="/de.badbathbears.privacycraft.core/common/net/minecraft/server/MinecraftServer.java"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="1"/>

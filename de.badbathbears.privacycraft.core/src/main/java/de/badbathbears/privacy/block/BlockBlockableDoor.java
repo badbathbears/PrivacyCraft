@@ -22,15 +22,18 @@ public class BlockBlockableDoor extends BlockDoor {
 	}
 
 	@Override
-	public boolean onBlockActivated(World par1World, int par2, int par3,
+	public boolean onBlockActivated(World world, int par2, int par3,
 			int par4, EntityPlayer player, int par6, float par7, float par8,
 			float par9) {
+		if (world.isRemote) {
+			return true;
+		}
 		// check for surrounding locks
-		if (isDoorLocked(par1World, par2, par3, par4)) {
-			return false;
+		if (isDoorLocked(world, par2, par3, par4)) {
+			return true;
 		}
 
-		return super.onBlockActivated(par1World, par2, par3, par4, player,
+		return super.onBlockActivated(world, par2, par3, par4, player,
 				par6, par7, par8, par9);
 	}
 
