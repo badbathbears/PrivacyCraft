@@ -3,10 +3,15 @@ package de.badbathbears.privacy.block;
 import java.util.Random;
 
 import net.minecraft.src.CreativeTabs;
+import net.minecraft.src.EntityLiving;
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
+import net.minecraft.src.MathHelper;
 import net.minecraft.src.World;
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.asm.SideOnly;
 import de.badbathbears.privacy.core.PrivacyCraft;
 import de.badbathbears.privacy.item.ItemKey;
 
@@ -37,6 +42,41 @@ public class BlockKeyLock extends BlockLock {
 		return false;
 	}
 
+	@Override
+	public String getTextureFile() {
+		return PrivacyCraft.textureFile;
+	}
+
+	@SideOnly(Side.CLIENT)
+	/**
+	 * Retrieves the block texture to use based on the display side. Args: iBlockAccess, x, y, z, side
+	 */
+	public int getBlockTexture(IBlockAccess par1IBlockAccess, int x, int y, int z, int side) {
+		int meta = par1IBlockAccess.getBlockMetadata(x, y, z);
+		
+		if((meta & 0x7) == 0)
+			meta = 2;
+		
+		if(isLocked(meta)) {
+			meta=meta-8;
+		}
+		return side != meta ? 1 : (this.isLocked(par1IBlockAccess, x, y, z) ? 2 : 3);
+	}
+	
+	@Override
+	public int getBlockTextureFromSide(int side) {
+		return side == 4 ? 2 : 1;
+	}
+
+	private boolean isLocked(IBlockAccess world, int x, int y, int z) {
+		int blockMetadata = world.getBlockMetadata(x, y, z);
+		return isLocked(blockMetadata);
+	}
+
+	public static boolean isLocked(int blockMetadata) {
+		return (blockMetadata & 8) == 8;
+	}
+
 	private boolean matches(ItemStack keyStack, TileEntityLock tile) {
 		// keyStack.getTagCompound()
 		return true;
@@ -46,4 +86,18 @@ public class BlockKeyLock extends BlockLock {
 		return PrivacyCraft.stoneKeyLockItem.shiftedIndex;
 	}
 
+	@Override
+	public void onBlockPlacedBy(World par1World, int par2, int par3, int par4, EntityLiving par5EntityLiving) {
+		super.onBlockPlacedBy(par1World, par2, par3, par4, par5EntityLiving);
+		int var6 = MathHelper.floor_double((double) (par5EntityLiving.rotationYaw * 4.0F / 360.0F) + 0.5D) & 3;
+		if (var6 == 0) {
+			par1World.setBlockMetadataWithNotify(par2, par3, par4, 2);
+		} else if (var6 == 1) {
+			par1World.setBlockMetadataWithNotify(par2, par3, par4, 5);
+		} else if (var6 == 2) {
+			par1World.setBlockMetadataWithNotify(par2, par3, par4, 3);
+		} else if (var6 == 3) {
+			par1World.setBlockMetadataWithNotify(par2, par3, par4, 4);
+		}
+	}
 }

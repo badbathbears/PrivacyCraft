@@ -1,16 +1,14 @@
 package de.badbathbears.privacy.item;
 
-import javax.xml.crypto.dsig.spec.ExcC14NParameterSpec;
-
-import cpw.mods.fml.common.Side;
-import cpw.mods.fml.common.asm.SideOnly;
-import de.badbathbears.privacy.core.PrivacyCraft;
 import net.minecraft.src.Block;
 import net.minecraft.src.CreativeTabs;
 import net.minecraft.src.EntityPlayer;
 import net.minecraft.src.Item;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.World;
+import cpw.mods.fml.common.Side;
+import cpw.mods.fml.common.asm.SideOnly;
+import de.badbathbears.privacy.core.PrivacyCraft;
 
 public class ItemCodeLock extends Item {
 

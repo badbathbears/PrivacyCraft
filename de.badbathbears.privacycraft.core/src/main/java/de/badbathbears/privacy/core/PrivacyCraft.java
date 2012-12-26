@@ -21,7 +21,6 @@ import de.badbathbears.privacy.item.ItemBlockableDoor;
 import de.badbathbears.privacy.item.ItemCodeLock;
 import de.badbathbears.privacy.item.ItemKey;
 import de.badbathbears.privacy.item.ItemKeyLock;
-import de.badbathbears.privacy.item.ItemRuby;
 
 @NetworkMod(//
 		clientSideRequired = true,// 
@@ -42,7 +41,6 @@ public class PrivacyCraft {
 	public static final String texturePath = "/PrivacyCraftGFX/";
 	public static final String textureFile = texturePath + "Textures.png";
 	// ITEMS
-	public static Item ruby = new ItemRuby(15000);
 	public static Item blockableIronDoorItem = new ItemBlockableDoor(15001,Material.iron);
 	public static Item blockableWoodDoorItem = new ItemBlockableDoor(15002,Material.wood);
 	public static Item keyItem = new ItemKey(15003);
