@@ -1,16 +1,21 @@
 package de.badbathbears.privacy.core;
 
 import net.minecraft.src.EntityPlayer;
+import net.minecraft.src.ItemStack;
 import net.minecraft.src.TileEntity;
 import net.minecraft.src.World;
 import cpw.mods.fml.common.network.IGuiHandler;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 import de.badbathbears.privacy.gui.ContainerCodeLock;
 import de.badbathbears.privacy.gui.GuiCodeLock;
+import de.badbathbears.privacy.gui.GuiKeyLock;
+import de.badbathbears.privacy.lock.ItemKey;
+import de.badbathbears.privacy.lock.KeyTile;
 import de.badbathbears.privacy.lock.TileEntityLock;
 
 public class CommonProxy implements IGuiHandler {
 	public static final int GUI_KEY_LOCK = 0;
+	public static final int GUI_CODE_LOCK = 1;
 
 	public void registerRenderInformation() {
 	}
@@ -22,11 +27,11 @@ public class CommonProxy implements IGuiHandler {
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
 
 		switch (ID) {
-
-		case GuiCodeLock.ID:
+		case GuiCodeLock.ID_KEY:
+		case GuiCodeLock.ID_CODE:
 			if (!(tile instanceof TileEntityLock))
 				return null;
-			return new ContainerCodeLock((TileEntityLock) tile);
+			return new ContainerCodeLock();
 		default:
 			return null;
 		}
@@ -37,13 +42,18 @@ public class CommonProxy implements IGuiHandler {
 		if (!world.blockExists(x, y, z))
 			return null;
 		TileEntity tile = world.getBlockTileEntity(x, y, z);
-
+		ItemStack currentEquippedItem = player.getCurrentEquippedItem();
+		if (!(tile instanceof TileEntityLock))
+			return null;
+		TileEntityLock lockTile = (TileEntityLock) tile;
 		switch (ID) {
 
-		case GuiCodeLock.ID:
-			if (!(tile instanceof TileEntityLock))
+		case GuiCodeLock.ID_KEY:
+			if (!(currentEquippedItem.getItem() instanceof ItemKey))
 				return null;
-			TileEntityLock lockTile = (TileEntityLock) tile;
+			KeyTile keyTile = new KeyTile(currentEquippedItem); 
+			return new GuiKeyLock(world,player, lockTile, keyTile, x, y, z, keyTile.isSet());
+		case GuiCodeLock.ID_CODE:
 			return new GuiCodeLock(world,player, lockTile, x, y, z, lockTile.isSet());
 		default:
 			return null;

@@ -17,6 +17,7 @@ import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 import de.badbathbears.privacy.core.PrivacyCraft;
+import de.badbathbears.privacy.lock.Lockable.LockType;
 
 public abstract class BlockLock extends BlockContainer{
 
@@ -27,6 +28,11 @@ public abstract class BlockLock extends BlockContainer{
 	protected BlockLock(int par1, int par2, Material par3Material) {
 		super(par1, par2, par3Material);
 		defaultTexture = 1;
+	}
+
+	@Override
+	public int getBlockTextureFromSide(int side) {
+		return side == 4 ? lockedTexture : defaultTexture;
 	}
 
 	@Override
@@ -52,7 +58,7 @@ public abstract class BlockLock extends BlockContainer{
 	public static void unlock(World world, int x, int y, int z, int blockMetadata, EntityPlayer playerEntity) {
 		TileEntityLock tile = (TileEntityLock) world.getBlockTileEntity(x, y, z);
 		world.setBlockMetadataWithNotify(x, y, z, (blockMetadata & 7));
-		sendPacket(playerEntity, tile.getKeyCode(), tile.isSet(), x, y, z, false);
+		sendPacket(playerEntity, tile.getKeyCode(), tile.isSet(), x, y, z, false, LockType.BLOCK);
 	}
 
 	public static void lock(World world, int x, int y, int z, int blockMetadata, EntityPlayer playerEntity) {
@@ -61,10 +67,10 @@ public abstract class BlockLock extends BlockContainer{
 		// TileEntityLock newTile = (TileEntityLock) world.getBlockTileEntity(x,
 		// y, z);
 		// newTile.setKeyCode(tile.getKeyCode());
-		sendPacket(playerEntity, tile.getKeyCode(), tile.isSet(), x, y, z, true);
+		sendPacket(playerEntity, tile.getKeyCode(), tile.isSet(), x, y, z, true, LockType.BLOCK);
 	}
 
-	public static void sendPacket(EntityPlayer playerEntity, String keyCode, boolean set, int x, int y, int z, boolean locked) {
+	public static void sendPacket(EntityPlayer playerEntity, String keyCode, boolean set, int x, int y, int z, boolean locked, Lockable.LockType type) {
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.CLIENT) {
 			ByteArrayOutputStream bos = new ByteArrayOutputStream(28);
@@ -73,6 +79,7 @@ public abstract class BlockLock extends BlockContainer{
 				outputStream.writeInt(x);
 				outputStream.writeInt(y);
 				outputStream.writeInt(z);
+				outputStream.writeInt(type.ordinal());
 				outputStream.writeBoolean(locked);
 				outputStream.writeBoolean(set);
 				outputStream.writeInt(keyCode.length());

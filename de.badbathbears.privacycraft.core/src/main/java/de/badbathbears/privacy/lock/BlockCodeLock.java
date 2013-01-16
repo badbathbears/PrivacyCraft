@@ -33,7 +33,7 @@ public class BlockCodeLock extends BlockLock {
 			lock(world, x, y, z, blockMetadata, player);
 		} else {
 			if(world.isRemote){
-				player.openGui(PrivacyCraft.instance, GuiCodeLock.ID, world, x, y, z);
+				player.openGui(PrivacyCraft.instance, GuiCodeLock.ID_CODE, world, x, y, z);
 			}
 		}
 		return true;
@@ -47,7 +47,7 @@ public class BlockCodeLock extends BlockLock {
 	public void onBlockPlacedBy(World world, int x, int y, int z, EntityLiving par5EntityLiving) {
 		super.onBlockPlacedBy(world, x, y, z, par5EntityLiving);
 		if (!world.isRemote) {
-			((EntityPlayer) par5EntityLiving).openGui(PrivacyCraft.instance, GuiCodeLock.ID, world, x, y, z);
+			((EntityPlayer) par5EntityLiving).openGui(PrivacyCraft.instance, GuiCodeLock.ID_CODE, world, x, y, z);
 		}
 	}
 }

@@ -8,7 +8,8 @@ import net.minecraft.src.TileEntity;
 
 public class TileEntityLock extends TileEntity implements Lockable {
 
-	private String keyCode = Lockable.DEFAULT;
+	
+	private String keyCode = Lockable.DEFAULT_CODE;
 	private boolean isSet = false;
 
 	public TileEntityLock() {
@@ -18,19 +19,19 @@ public class TileEntityLock extends TileEntity implements Lockable {
 	public void onDataPacket(INetworkManager net, Packet132TileEntityData pkt) {
 		super.onDataPacket(net, pkt);
 		NBTTagCompound tag = pkt.customParam1;
-		keyCode = tag.getString(Lockable.KEY_CODE);
+		keyCode = tag.getString(Lockable.KEY_INDEX);
 	}
 
 	@Override
 	public void writeToNBT(NBTTagCompound par1nbtTagCompound) {
 		super.writeToNBT(par1nbtTagCompound);
-		par1nbtTagCompound.setString(KEY_CODE, this.getKeyCode());
+		par1nbtTagCompound.setString(KEY_INDEX, this.getKeyCode());
 	}
 
 	@Override
 	public void readFromNBT(NBTTagCompound par1nbtTagCompound) {
 		super.readFromNBT(par1nbtTagCompound);
-		this.setKeyCode(par1nbtTagCompound.getString(KEY_CODE));
+		this.setKeyCode(par1nbtTagCompound.getString(KEY_INDEX));
 	}
 
 	public String getKeyCode() {
@@ -57,5 +58,10 @@ public class TileEntityLock extends TileEntity implements Lockable {
 
 	public void setSet(boolean isSet) {
 		this.isSet = isSet;
+	}
+
+	@Override
+	public LockType getType() {
+		return LockType.BLOCK;
 	}
 }

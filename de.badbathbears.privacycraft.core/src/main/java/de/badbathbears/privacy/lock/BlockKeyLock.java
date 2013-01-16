@@ -9,11 +9,11 @@ import net.minecraft.src.IBlockAccess;
 import net.minecraft.src.ItemStack;
 import net.minecraft.src.Material;
 import net.minecraft.src.MathHelper;
-import net.minecraft.src.NBTTagCompound;
 import net.minecraft.src.World;
 import cpw.mods.fml.common.Side;
 import cpw.mods.fml.common.asm.SideOnly;
 import de.badbathbears.privacy.core.PrivacyCraft;
+import de.badbathbears.privacy.gui.GuiCodeLock;
 
 //TODO dafür sorgen dass nicht verschiebbar (auch nicht durch redpower!)
 public class BlockKeyLock extends BlockLock {
@@ -27,15 +27,27 @@ public class BlockKeyLock extends BlockLock {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, int par2, int par3, int par4, EntityPlayer player, int par6, float par7, float par8, float par9) {
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 		if(player.isSneaking()) {
 			return false;
 		}
 		ItemStack currentEquippedItem = player.getCurrentEquippedItem();
-		TileEntityLock tile = (TileEntityLock) getTile(world, par2, par3, par4);
+		TileEntityLock tile = (TileEntityLock) getTile(world, x, y, z);
 		if (currentEquippedItem != null && currentEquippedItem.getItem() instanceof ItemKey) {
-			if (matches(currentEquippedItem, tile)) {
-				toggleLocked(world, par2, par3, par4, player);
+			KeyTile keyTile = new KeyTile(currentEquippedItem);
+			System.out.println("keylock	key");
+			if(keyTile.isSet()){
+				System.out.println("keylock	set");
+				if (matches(keyTile, tile)) {
+					System.out.println("keylock	toggle");
+					toggleLocked(world, x, y, z, player);
+				}
+			} else {
+				System.out.println("keylock	not set");
+				if(world.isRemote){
+					System.out.println("keylock	remote -> open ui");
+					player.openGui(PrivacyCraft.instance, GuiCodeLock.ID_KEY, world, x, y, z);
+				}
 			}
 			return true;
 		}
@@ -62,11 +74,6 @@ public class BlockKeyLock extends BlockLock {
 		}
 		return side != meta ? 1 : (this.isLocked(par1IBlockAccess, x, y, z) ? 2 : 3);
 	}
-	
-	@Override
-	public int getBlockTextureFromSide(int side) {
-		return side == 4 ? 2 : 1;
-	}
 
 	private boolean isLocked(IBlockAccess world, int x, int y, int z) {
 		int blockMetadata = world.getBlockMetadata(x, y, z);
@@ -77,13 +84,11 @@ public class BlockKeyLock extends BlockLock {
 		return (blockMetadata & 8) == 8;
 	}
 
-	private boolean matches(ItemStack keyStack, TileEntityLock tile) {
-		NBTTagCompound tagCompound = keyStack.getTagCompound();
-		String itemKey = tagCompound.getString(TileEntityLock.KEY_CODE);
-		if(tile != null && itemKey != null && itemKey.equals(tile.getKeyCode())) {
-			return true;
-		}
-		return false;
+	private boolean matches(KeyTile keyStack, TileEntityLock tile) {
+		String keyCode = tile.getKeyCode();
+		String keyCode2 = keyStack.getKeyCode();
+		System.out.println("keylock.matches" + keyCode + " vs " + keyCode2);
+		return keyCode2.equals(keyCode);
 	}
 
 	public int idDropped(int par1, Random par2Random, int par3) {

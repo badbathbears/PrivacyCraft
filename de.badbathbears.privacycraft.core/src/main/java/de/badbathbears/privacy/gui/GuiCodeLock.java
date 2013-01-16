@@ -13,12 +13,13 @@ import cpw.mods.fml.common.asm.SideOnly;
 import de.badbathbears.privacy.core.CommonProxy;
 import de.badbathbears.privacy.core.PrivacyCraft;
 import de.badbathbears.privacy.lock.BlockLock;
-import de.badbathbears.privacy.lock.TileEntityLock;
+import de.badbathbears.privacy.lock.Lockable;
 
 @SideOnly(Side.CLIENT)
 public class GuiCodeLock extends GuiContainer {
-	public static final int ID = CommonProxy.GUI_KEY_LOCK;
-	private TileEntityLock tile;
+	public static final int ID_KEY = CommonProxy.GUI_KEY_LOCK;
+	public static final int ID_CODE = CommonProxy.GUI_CODE_LOCK;
+	private Lockable tile;
 	private String code = "";
 	private World world;
 	private int x;
@@ -28,8 +29,8 @@ public class GuiCodeLock extends GuiContainer {
 	private EntityPlayer player;
 	private GuiTextField guiTextField;
 
-	public GuiCodeLock(World world, EntityPlayer player, TileEntityLock tile, int x, int y, int z, boolean set) {
-		super(new ContainerCodeLock(tile));
+	public GuiCodeLock(World world, EntityPlayer player, Lockable tile, int x, int y, int z, boolean set) {
+		super(new ContainerCodeLock());
 		this.world = world;
 		this.player = player;
 		this.tile = tile;
@@ -50,9 +51,7 @@ public class GuiCodeLock extends GuiContainer {
 		if (button.id == 13) {
 			if (this.code.length() == 4) {
 				if (!set) {
-					tile.setSet(true);
-					tile.setKeyCode(code);
-					BlockLock.sendPacket(player, code, true, x, y, z, false);
+					setCode(tile);
 					this.mc.thePlayer.closeScreen();
 				} else {
 					if (code.equals(tile.getKeyCode())) {
@@ -66,8 +65,7 @@ public class GuiCodeLock extends GuiContainer {
 				this.code = "";
 			}
 		} else if (button.id == 12) {
-			tile.setSet(true);
-			BlockLock.sendPacket(player, code, true, x, y, z, false);
+			setCode(tile);
 			this.mc.thePlayer.closeScreen();
 		} else if (button.id == 10) {
 			if (code.length() > 0) {
@@ -80,6 +78,12 @@ public class GuiCodeLock extends GuiContainer {
 				}
 			}
 		}
+	}
+
+	protected void setCode(Lockable tile) {
+		tile.setSet(true);
+		tile.setKeyCode(code);
+		BlockLock.sendPacket(player, code, true, x, y, z, false, tile.getType());
 	}
 
 	@SuppressWarnings("unchecked")

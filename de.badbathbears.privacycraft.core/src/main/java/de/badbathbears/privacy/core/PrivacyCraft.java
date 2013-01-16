@@ -40,18 +40,18 @@ public class PrivacyCraft {
 
 	public static final String texturePath = "/PrivacyCraftGFX/";
 	public static final String textureFile = texturePath + "Textures.png";
-	// ITEMS
-	public static Item blockableIronDoorItem = new ItemLockableDoor(15001,Material.iron);
-	public static Item blockableWoodDoorItem = new ItemLockableDoor(15002,Material.wood);
-	public static Item keyItem = new ItemKey(15003);
-	public static Item stoneKeyLockItem = new ItemKeyLock(15004);
-	public static Item stoneCodeLockItem = new ItemCodeLock(15005);
-	
 	// BLOCKS
 	public static Block blockableWoodDoorBlock = new BlockLockableDoor(2049,Material.wood);
 	public static Block blockableIronDoorBlock = new BlockLockableDoor(2050,Material.iron);
 	public static Block stoneKeyLockBlock = new BlockKeyLock(2051,1,Material.rock);
 	public static Block stoneCodeLockBlock = new BlockCodeLock(2052,1,Material.rock);
+	// ITEMS
+	public static Item blockableIronDoorItem = new ItemLockableDoor(15001,Material.iron);
+	public static Item blockableWoodDoorItem = new ItemLockableDoor(15002,Material.wood);
+	public static Item keyItem = new ItemKey(15003);
+	public static Item stoneKeyLockItem = new ItemKeyLock(stoneKeyLockBlock.blockID-256);
+	public static Item stoneCodeLockItem = new ItemCodeLock(stoneCodeLockBlock.blockID-256);
+	
 
 
 	@Init
